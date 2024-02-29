@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta de Empleado</title>
+    <title>Alta trabajador/a</title>
 </head>
-<body>
     
 <body>
 <div>
@@ -17,35 +16,22 @@
 		<li><a href="index.php">Inicio</a></li>
 		<li><a href="add.html">Alta</a></li>
 	</ul>
-	<h2>Alta de empleado</h2>
-<!--Creamos un formulario que viaje por post-->
- <!--  <form action="add.php" method="post">-->
-	<h2>Estoy AQUI 2</h2>
+	<h2>Alta trabajador/a</h2>
+
 	<form action="add.php" method="post">
-<!--Vamos a tener un div que abre y cierra por cada uno de los campos-->		
 		<div>
 			<label for="name">Nombre</label>
-			<input type="text" name="name" id="name" placeholder="Nombre del empleado" required>
+			<input type="text" name="name" id="name" placeholder="nombre" required>
 		</div>
 
 		<div>
-			<label for="surname1">1º apellido</label>
-			<input type="text" name="surname1" id="surname1" placeholder="Primer apellido" required>
-		</div>
-
-		<div>
-			<label for="surname2">2º apellido</label>
-			<input type="text" name="surname2" id="surname2" placeholder="Segundo apellido">
+			<label for="surname">Apellido</label>
+			<input type="text" name="surname" id="surname" placeholder="apellido" required>
 		</div>
 
 		<div>
 			<label for="age">Edad</label>
 			<input type="number" name="age" id="age" placeholder="edad" required>
-		</div>
-
-		<div>
-			<label for="email">Correo</label>
-			<input type="email" name="email" id="email" placeholder="usuario@dominio" required>
 		</div>
 
 		<div>

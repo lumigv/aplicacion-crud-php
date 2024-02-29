@@ -1,16 +1,10 @@
 <?php
 
-define('DB_HOST', getenv('DB_HOST'));
-define('DB_NAME', getenv('DB_NAME'));
-define('DB_USER', getenv('DB_USER'));
-define('DB_PASSWORD', getenv('DB_PASSWORD'));
-
-/*
 define('DB_HOST', 'mariadb');
-define('DB_NAME', 'database_name_here');
-define('DB_USER', 'username_here');
-define('DB_PASSWORD', 'password_here');
-*/
+define('DB_NAME', 'crud_db');
+define('DB_USER', 'crud_user');
+define('DB_PASSWORD', 'crud_password');
+
 
 
 $mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
