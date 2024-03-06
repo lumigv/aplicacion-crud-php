@@ -4,13 +4,13 @@
 >Módulo: IAW - Implantación de Aplicaciones Web  
 >Ciclo: CFGS Administración de Sistemas Informáticos en Red  
 
-Esta práctica consiste en un sistema **muy básico** para añadir, editar, borrar y ver registros de una base de datos, haciendo uso de [PHP][1] y [MariaDB][2].
+Este repositorio es una **guía** para la realización de la **actividad 6.1** de IAW. Contiene lo siguiente: 
+* Modelo de Aplicación CRUD PHP
+* Modelo archivo Dockerfile para la generación de la imagen
+* Modelo escenario docker-commpose.yml para el despliegue de la aplicación PHP
+* Archivo .env para la configuración de variables de entorno (BD, usuario, contraseña).
+* Script SQL para la inicialización de la BD
+* Archivo de configuración sitio web por defecto en Apache.
 
-## Créditos
+Recuerda que el escenario con un modelo de aplicación PHP CRUD donde debes realizar los cambios pedidos y realizar las correspondientes pruebas según se indica en la Actividad 6.1 lo tienes en el siguiente repositorio: [crud-php](https://github.com/lumigv/crud-php)
 
-El código utilizado en esta práctica está basado en el repositorio [crud-php-simple][3] de [@chapagain][4].
-
-[1]: http://www.php.net
-[2]: https://www.mysql.com
-[3]: https://github.com/chapagain/crud-php-simple
-[4]: https://github.com/chapagain
