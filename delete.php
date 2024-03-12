@@ -12,7 +12,7 @@ PHP proporciona el array asociativo $_POST para acceder a la información enviad
 $id = $_GET['id'];
 
 //Prepara una sentencia SQL para su ejecución. En este caso el borrado de un registro de la BD.
-$stmt = mysqli_prepare($mysqli, "DELETE FROM users WHERE id=?");
+$stmt = mysqli_prepare($mysqli, "DELETE FROM NBA_Stats WHERE id=?");
 /*Enlaza variables como parámetros a una setencia preparada. 
 i: La variable correspondiente tiene tipo entero
 d: La variable correspondiente tiene tipo doble

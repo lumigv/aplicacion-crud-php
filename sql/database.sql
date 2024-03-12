@@ -1,16 +1,17 @@
-CREATE TABLE users (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  surname VARCHAR(100) NOT NULL,
-  name VARCHAR(100) NOT NULL,
-  age INT UNSIGNED NOT NULL
+CREATE TABLE NBA_Stats (
+    Equipo VARCHAR(255),
+    Jugador VARCHAR(255),
+    Puntos INT,
+    Asistencias INT,
+    Rebotes INT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO users (surname, name, age) VALUES('Casas', 'Julian', 27);
-INSERT INTO users (surname, name, age) VALUES('Oro', 'Carlos', 32);
-INSERT INTO users (surname, name, age) VALUES('Valencia', 'Pablo', 29);
-INSERT INTO users (surname, name, age) VALUES('Dimas', 'Maria', 19);
-INSERT INTO users (surname, name, age) VALUES('Corrales', 'Marcos', 26);
-INSERT INTO users (surname, name, age) VALUES('Perez', 'Juan', 21);
-INSERT INTO users (surname, name, age) VALUES('Zapata', 'Pedro', 23);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Los Angeles Lakers', 'LeBron James', 25, 8, 7);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Brooklyn Nets', 'Kevin Durant', 28, 5, 6);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Golden State Warriors', 'Stephen Curry', 32, 6, 4);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Milwaukee Bucks', 'Giannis Antetokounmpo', 30, 7, 11);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Denver Nuggets', 'Nikola Jokic', 27, 8, 12);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Philadelphia 76ers', 'Joel Embiid', 29, 4, 10);
+INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES ('Dallas Mavericks', 'Luka Doncic', 31, 9, 8);
 
 

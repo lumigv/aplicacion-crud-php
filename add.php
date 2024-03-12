@@ -28,54 +28,47 @@ include_once("config.php");
 En este caso comprueba la información "inserta" procedente del botón Agregar del formulario de altas
 Transacción de datos utilizando el método: POST
 */
-if(isset($_POST['inserta'])) 
-{
-//Obtiene los datos (name, surname y age) a partir del formulario de alta por el método POST (Se envía a través del body del HTTP Request. No aparece en la URL)
-	$name = mysqli_real_escape_string($mysqli, $_POST['name']);
-	$surname = mysqli_real_escape_string($mysqli, $_POST['surname']);
-	$age = mysqli_real_escape_string($mysqli, $_POST['age']);
-/*Con mysqli_real_scape_string protege caracteres especiales en una cadena para ser usada en una sentencia SQL.
-Esta función es usada para crear una cadena SQL legal que se puede usar en una sentencia SQL. 
-Los caracteres codificados son NUL (ASCII 0), \n, \r, \, ', ", y Control-Z.*/
+<?php
+// Verificar si se ha enviado el formulario
+if(isset($_POST['inserta'])) {
+    // Conexión a la base de datos
+    $mysqli = mysqli_connect("host", "usuario", "contraseña", "basededatos");
 
-//Comprueba si existen campos vacíos
-	if(empty($name) || empty($age) || empty($surname)) 
-	{
-		if(empty($name)) {
-			echo "<div>Campo nombre vacío.</div>";
-		}
+    // Verificar la conexión
+    if($mysqli === false){
+        die("ERROR: No se pudo conectar. " . mysqli_connect_error());
+    }
 
-		if(empty($surname)) {
-			echo "<div>Campo apellido vacío</div>";
-		}
+    // Escapar las variables del formulario para evitar la inyección SQL
+    $equipo = mysqli_real_escape_string($mysqli, $_POST['equipo']);
+    $jugador = mysqli_real_escape_string($mysqli, $_POST['jugador']);
+    $puntos = mysqli_real_escape_string($mysqli, $_POST['puntos']);
+    $asistencias = mysqli_real_escape_string($mysqli, $_POST['asistencias']);
+    $rebotes = mysqli_real_escape_string($mysqli, $_POST['rebotes']);
 
-		if(empty($age)) {
-			echo "<div>Campo edad vacío.</div>";
-		}
-//Enlace a la página anterior
-		echo "<a href='javascript:self.history.back();'>Volver atras</a>";
-	} //fin si
-	else 
-	{
-//Prepara una sentencia SQL para su ejecución. En este caso el alta de un registro de la BD.		
-		$stmt = mysqli_prepare($mysqli, "INSERT INTO users (name,surname,age) VALUES(?,?,?)");
-/*Enlaza variables como parámetros a una setencia preparada. 
-i: La variable correspondiente tiene tipo entero
-d: La variable correspondiente tiene tipo doble
-s:	La variable correspondiente tiene tipo cadena
-*/		
-		mysqli_stmt_bind_param($stmt, "ssi", $name, $surname, $age);
-//Ejecuta una consulta preparada		
-		mysqli_stmt_execute( $stmt);
-//Libera la memoria donde se almacenó el resultado		
-		mysqli_stmt_free_result($stmt);
-//Cierra la sentencia preparada		
-		mysqli_stmt_close($stmt);
-//Muestra mensaje exitoso		
-		echo "<div>Datos añadidos correctamente</div>";
-		echo "<a href='index.php'>Ver resultado</a>";
-	}//fin sino
-}
+    // Validar que los campos no estén vacíos
+    if(empty($equipo) || empty($jugador) || empty($puntos) || empty($asistencias) || empty($rebotes)) {
+        echo "<div>Por favor, complete todos los campos.</div>";
+        echo "<a href='javascript:self.history.back();'>Volver atrás</a>";
+    } else {
+        // Preparar la sentencia SQL
+        $stmt = mysqli_prepare($mysqli, "INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES (?, ?, ?, ?, ?)");
+
+        // Vincular los parámetros
+        mysqli_stmt_bind_param($stmt, "ssiii", $equipo, $jugador, $puntos, $asistencias, $rebotes);
+
+        // Ejecutar la consulta
+        if(mysqli_stmt_execute($stmt)) {
+            echo "<div>Datos añadidos correctamente</div>";
+            echo "<a href='index.php'>Ver resultados</a>";
+        } else {
+            echo "ERROR: No se pudo ejecutar la consulta.";
+        }
+
+        // Liberar la memoria
+        mysqli_stmt_free_result($stmt);
+        mysqli_stmt_close($stmt);
+    }
 
 //Cierra la conexión
 mysqli_close($mysqli);

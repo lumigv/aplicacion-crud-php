@@ -3,47 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta trabajador/a</title>
+    <title>Alta jugador NBA</title>
 </head>
     
 <body>
 <div>
-	<header>
-		<h1>Panel de control</h1>
-	</header>
-	<main>				
-	<ul>
-		<li><a href="index.php">Inicio</a></li>
-		<li><a href="add.html">Alta</a></li>
-	</ul>
-	<h2>Alta trabajador/a</h2>
+    <header>
+        <h1>Panel de control</h1>
+    </header>
+    <main>                
+    <ul>
+        <li><a href="index.php">Inicio</a></li>
+        <li><a href="add.html">Alta</a></li>
+    </ul>
+    <h2>Alta jugador NBA</h2>
 
-	<form action="add.php" method="post">
-		<div>
-			<label for="name">Nombre</label>
-			<input type="text" name="name" id="name" placeholder="nombre" required>
-		</div>
+    <form action="add.php" method="post">
+        <div>
+            <label for="equipo">Equipo</label>
+            <input type="text" name="equipo" id="equipo" placeholder="equipo" required>
+        </div>
 
-		<div>
-			<label for="surname">Apellido</label>
-			<input type="text" name="surname" id="surname" placeholder="apellido" required>
-		</div>
+        <div>
+            <label for="jugador">Jugador</label>
+            <input type="text" name="jugador" id="jugador" placeholder="jugador" required>
+        </div>
 
-		<div>
-			<label for="age">Edad</label>
-			<input type="number" name="age" id="age" placeholder="edad" required>
-		</div>
+        <div>
+            <label for="puntos">Puntos</label>
+            <input type="number" name="puntos" id="puntos" placeholder="puntos" required>
+        </div>
 
-		<div>
-			<input type="submit" name="inserta" value="Agregar">
-			<input type="button" value="Cancelar" onclick="location.href='index.php'">
-		</div>
-	</form>
-	
-	</main>	
-	<footer>
-	Created by the IES Miguel Herrero team &copy; 2024
-  	</footer>
+        <div>
+            <label for="asistencias">Asistencias</label>
+            <input type="number" name="asistencias" id="asistencias" placeholder="asistencias" required>
+        </div>
+
+        <div>
+            <label for="rebotes">Rebotes</label>
+            <input type="number" name="rebotes" id="rebotes" placeholder="rebotes" required>
+        </div>
+
+        <div>
+            <input type="submit" name="inserta" value="Agregar">
+            <input type="button" value="Cancelar" onclick="location.href='index.php'">
+        </div>
+    </form>
+    
+    </main>    
+    <footer>
+    Created by the IES Miguel Herrero team &copy; 2024
+    </footer>
 </div>
 </body>
 </html>

@@ -1,101 +1,116 @@
 <?php
-include_once("config.php");
+// Verificar si se ha enviado el formulario
+if(isset($_POST['inserta'])) {
+    // Conexión a la base de datos
+    $mysqli = mysqli_connect("host", "usuario", "contraseña", "basededatos");
 
-if(isset($_POST['modifica'])) {
-	$id = mysqli_real_escape_string($mysqli, $_POST['id']);
-	$name = mysqli_real_escape_string($mysqli, $_POST['name']);
-	$surname = mysqli_real_escape_string($mysqli, $_POST['surname']);
-	$age = mysqli_real_escape_string($mysqli, $_POST['age']);
+    // Verificar la conexión
+    if($mysqli === false){
+        die("ERROR: No se pudo conectar. " . mysqli_connect_error());
+    }
 
-	if(empty($name) || empty($surname) || empty($age))	{
-		if(empty($name)) {
-			echo "<font color='red'>Campo nombre vacío.</font><br/>";
-		}
+    // Escapar las variables del formulario para evitar la inyección SQL
+    $equipo = mysqli_real_escape_string($mysqli, $_POST['equipo']);
+    $jugador = mysqli_real_escape_string($mysqli, $_POST['jugador']);
+    $puntos = mysqli_real_escape_string($mysqli, $_POST['puntos']);
+    $asistencias = mysqli_real_escape_string($mysqli, $_POST['asistencias']);
+    $rebotes = mysqli_real_escape_string($mysqli, $_POST['rebotes']);
 
-		if(empty($surname)) {
-			echo "<font color='red'>Campo apellido vacío.</font><br/>";
-		}
+    // Validar que los campos no estén vacíos
+    if(empty($equipo) || empty($jugador) || empty($puntos) || empty($asistencias) || empty($rebotes)) {
+        echo "<div>Por favor, complete todos los campos.</div>";
+        echo "<a href='javascript:self.history.back();'>Volver atrás</a>";
+    } else {
+        // Preparar la sentencia SQL
+        $stmt = mysqli_prepare($mysqli, "INSERT INTO NBA_Stats (Equipo, Jugador, Puntos, Asistencias, Rebotes) VALUES (?, ?, ?, ?, ?)");
 
-		if(empty($age)) {
-			echo "<font color='red'>Campo edad vacío.</font><br/>";
-		}
-	} //fin si
-	else 
-	{
-		$stmt = mysqli_prepare($mysqli, "UPDATE users SET name=?,surname=?,age=? WHERE id=?");
-		mysqli_stmt_bind_param($stmt, "ssii", $name, $surname, $age, $id);
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_free_result($stmt);
-		mysqli_stmt_close($stmt);
+        // Vincular los parámetros
+        mysqli_stmt_bind_param($stmt, "ssiii", $equipo, $jugador, $puntos, $asistencias, $rebotes);
 
-		header("Location: index.php");
-	}// fin sino
-}//fin si
-?>
+        // Ejecutar la consulta
+        if(mysqli_stmt_execute($stmt)) {
+            echo "<div>Datos añadidos correctamente</div>";
+            echo "<a href='index.php'>Ver resultados</a>";
+        } else {
+            echo "ERROR: No se pudo ejecutar la consulta.";
+        }
 
-<?php
-$id = $_GET['id'];
+        // Liberar la memoria
+        mysqli_stmt_free_result($stmt);
+        mysqli_stmt_close($stmt);
+    }
 
-$id = mysqli_real_escape_string($mysqli, $id);
+    // Cerrar la conexión
+    mysqli_close($mysqli);
+}
 
-$stmt = mysqli_prepare($mysqli, "SELECT name, surname, age FROM users WHERE id=?");
+$id = mysqli_real_escape_string($mysqli, $_GET['id']);
+$stmt = mysqli_prepare($mysqli, "SELECT Equipo, Jugador, Puntos, Asistencias, Rebotes FROM NBA_Stats WHERE id=?");
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt, $name, $surname, $age);
+mysqli_stmt_bind_result($stmt, $equipo, $jugador, $puntos, $asistencias, $rebotes);
 mysqli_stmt_fetch($stmt);
 mysqli_stmt_free_result($stmt);
-mysqli_stmt_close($stmt);
 mysqli_close($mysqli);
+
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">	
-	<title>Modificación trabajador/a</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta jugador NBA</title>
 </head>
-
+    
 <body>
 <div>
-	<header>
-		<h1>Panel de Control</h1>
-	</header>
-	
-	<main>				
-	<ul>
-		<li><a href="index.php" >Inicio</a></li>
-		<li><a href="add.html" >Alta</a></li>
-	</ul>
-	<h2>Modificación trabajador/a</h2>
+    <header>
+        <h1>Panel de control</h1>
+    </header>
+    <main>                
+    <ul>
+        <li><a href="index.php">Inicio</a></li>
+        <li><a href="add.html">Alta</a></li>
+    </ul>
+    <h2>Alta jugador NBA</h2>
 
-	<form action="edit.php" method="post">
-		<div>
-			<label for="name">Nombre</label>
-			<input type="text" name="name" id="name" value="<?php echo $name;?>" required>
-		</div>
+    <form action="add.php" method="post">
+        <div>
+            <label for="equipo">Equipo</label>
+            <input type="text" name="equipo" id="equipo" placeholder="equipo" required>
+        </div>
 
-		<div>
-			<label for="surname">Apellido</label>
-			<input type="text" name="surname" id="surname" value="<?php echo $surname;?>" required>
-		</div>
+        <div>
+            <label for="jugador">Jugador</label>
+            <input type="text" name="jugador" id="jugador" placeholder="jugador" required>
+        </div>
 
-		<div>
-			<label for="age">Edad</label>
-			<input type="number" name="age" id="age" value="<?php echo $age;?>" required>
-		</div>
+        <div>
+            <label for="puntos">Puntos</label>
+            <input type="number" name="puntos" id="puntos" placeholder="puntos" required>
+        </div>
 
-		<div >
-			<input type="hidden" name="id" value=<?php echo $id;?>>
-			<input type="submit" name="modifica" value="Guardar">
-			<input type="button" value="Cancelar" onclick="location.href='index.php'">
-		</div>
-	</form>
+        <div>
+            <label for="asistencias">Asistencias</label>
+            <input type="number" name="asistencias" id="asistencias" placeholder="asistencias" required>
+        </div>
 
-	</main>	
-	<footer>
-	Created by the IES Miguel Herrero team &copy; 2024
-  	</footer>
+        <div>
+            <label for="rebotes">Rebotes</label>
+            <input type="number" name="rebotes" id="rebotes" placeholder="rebotes" required>
+        </div>
+
+        <div>
+            <input type="submit" name="inserta" value="Agregar">
+            <input type="button" value="Cancelar" onclick="location.href='index.php'">
+        </div>
+    </form>
+    
+    </main>    
+    <footer>
+    Created by the IES Miguel Herrero team &copy; 2024
+    </footer>
 </div>
 </body>
 </html>
