@@ -2,7 +2,8 @@ version: '3'
 
 services: 
   apache:
-    image: lumigv/lamp-crud-app:1.0
+    image: hugofernandezjimenez/lamp-crud-app
+
     ports: 
       - 80:80
     depends_on:
