@@ -5,12 +5,12 @@ CREATE TABLE users (
   age INT UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO users (surname, name, age) VALUES('Casas', 'Julian', 27);
-INSERT INTO users (surname, name, age) VALUES('Oro', 'Carlos', 32);
-INSERT INTO users (surname, name, age) VALUES('Valencia', 'Pablo', 29);
-INSERT INTO users (surname, name, age) VALUES('Dimas', 'Maria', 19);
-INSERT INTO users (surname, name, age) VALUES('Corrales', 'Marcos', 26);
-INSERT INTO users (surname, name, age) VALUES('Perez', 'Juan', 21);
-INSERT INTO users (surname, name, age) VALUES('Zapata', 'Pedro', 23);
+INSERT INTO users (surname, name, age) VALUES('Coloma', 'Javier', 25);
+INSERT INTO users (surname, name, age) VALUES('Oviedo', 'Carmen', 34);
+INSERT INTO users (surname, name, age) VALUES('Vargas', 'Pascual', 19);
+INSERT INTO users (surname, name, age) VALUES('Donoso', 'Maria', 45);
+INSERT INTO users (surname, name, age) VALUES('Celis', 'Manuel', 56);
+INSERT INTO users (surname, name, age) VALUES('Palencia', 'Jana', 31);
+INSERT INTO users (surname, name, age) VALUES('Zamanillo', 'Pedro', 63);
 
 
